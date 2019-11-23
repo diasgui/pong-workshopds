@@ -4,7 +4,7 @@ defmodule PongBackendWeb.RegistrationController do
   alias PongBackend.Accounts.Player
 
   def sign_up(conn, %{"name" => name}) do
-    changeset = Player.registration_changeset(%Player{}, %{"name" => name})
+    changeset = Player.changeset(%Player{}, %{"name" => name, "wins" => 0, "losses" => 0})
 
     case Repo.insert(changeset) do
       {:ok, player} ->

@@ -18,10 +18,4 @@ defmodule PongBackend.Accounts.Player do
     |> cast(attrs, [:name, :wins, :losses])
     |> validate_required([:name, :wins, :losses])
   end
-
-  def registration_changeset(struct, params \\ %{}) do
-    struct
-    |> cast(params, [:name])
-    |> validate_required([:name])
-  end
 end

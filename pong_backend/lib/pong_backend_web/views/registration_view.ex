@@ -6,7 +6,9 @@ defmodule PongBackendWeb.RegistrationView do
       status: :ok,
       data: %{
         token: jwt,
-        id: player.id
+        id: player.id,
+        wins: player.wins,
+        losses: player.losses
       },
       message: """
         Now you can sign in using your id at /api/sign_in. You will receive JWT token.

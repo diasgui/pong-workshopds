@@ -1,16 +1,16 @@
 # TODO
--- Backend-Client Interface
+## Backend-Client Interface
 [ ] create
 [ ] authenicate
 [ ] learderboard
 [ ] findmatch
 
--- Game UI
+## Game UI
 [ ] Menu
 [ ] Leaderboard
 [ ] Waiting Match
 
--- Game Code
+## Game Code
 [ ] AppDelegate
 [ ] GameInitializer
 [ ] ViewControllerFactory

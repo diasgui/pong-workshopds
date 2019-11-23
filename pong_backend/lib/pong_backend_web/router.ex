@@ -12,6 +12,6 @@ defmodule PongBackendWeb.Router do
   scope "/api", PongBackendWeb do
     pipe_through :api
     post "/sign_up", RegistrationController, :sign_up
-    #post "/sign_in", SessionController, :sign_in
+    post "/sign_in", SessionController, :sign_in
   end
 end

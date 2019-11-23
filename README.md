@@ -5,6 +5,7 @@
 * [ ] changeName
 * [ ] learderboard
 * [ ] findmatch
+* [ ] matchEnded
 
 ## Backend Database
 * [ ] Players

@@ -2,7 +2,7 @@
 ## Backend-Client Interface
 * [ ] create
 * [ ] authenicate
-* [ ] vim
+* [ ] changeName
 * [ ] learderboard
 * [ ] findmatch
 
@@ -13,6 +13,7 @@
 * [ ] Menu
 * [ ] Leaderboard
 * [ ] Waiting Match
+* [ ] Loading screen
 
 ## Game Code
 * [ ] AppDelegate

@@ -8,9 +8,10 @@ defmodule PongBackendWeb.RegistrationController do
 
     case Repo.insert(changeset) do
       {:ok, player} ->
+        {:ok, jwt, _full_claims} = PongBackend.Guardian.encode_and_sign(player, %{}, permissions: %{player: []})
         conn
         |> put_status(:created)
-        |> render("success.json", player: player)
+        |> render("success.json", player: player, jwt: jwt)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)

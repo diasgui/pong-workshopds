@@ -1,10 +1,11 @@
 defmodule PongBackendWeb.RegistrationView do
   use PongBackendWeb, :view
 
-  def render("success.json", %{player: player}) do
+  def render("success.json", %{player: player, jwt: jwt}) do
     %{
       status: :ok,
       data: %{
+        token: jwt,
         id: player.id
       },
       message: """

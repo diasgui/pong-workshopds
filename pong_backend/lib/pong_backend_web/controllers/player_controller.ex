@@ -40,4 +40,12 @@ defmodule PongBackendWeb.PlayerController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def change_name(conn, %{"name" => name}) do
+    player = Accounts.get_player!(conn.private.guardian_default_resource.id)
+
+    with {:ok, %Player{} = player} <- Accounts.update_player(player, %{"name" => name}) do
+      render(conn, "show.json", player: player)
+    end
+  end
 end

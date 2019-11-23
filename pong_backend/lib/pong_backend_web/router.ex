@@ -15,6 +15,6 @@ defmodule PongBackendWeb.Router do
     post "/sign_in", SessionController, :sign_in
 
     pipe_through :authenticated
-    resources "/players", PlayerController, except: [:new, :edit]
+    post "/change_name", PlayerController, :change_name
   end
 end

@@ -17,5 +17,6 @@ defmodule PongBackendWeb.Router do
 
     pipe_through :authenticated
     post "/change_name", PlayerController, :change_name
+    post "/find_match", MatchController, :find_match
   end
 end

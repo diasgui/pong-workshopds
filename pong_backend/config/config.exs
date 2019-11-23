@@ -26,7 +26,7 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 # Configures the Guardian
-config :economizai, PongBackend.Guardian,
+config :pong_backend, PongBackend.Guardian,
   allowed_algos: ["HS512"], # optional
   verify_module: Guardian.JWT,  # optional
   issuer: "PongBackend",

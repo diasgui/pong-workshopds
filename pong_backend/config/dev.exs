@@ -2,8 +2,8 @@ use Mix.Config
 
 # Configure your database
 config :pong_backend, PongBackend.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "pong_user",
+  password: "",
   database: "pong_backend_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,

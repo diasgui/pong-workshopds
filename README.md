@@ -20,4 +20,7 @@
 * [ ] View (abs)
 * [ ] Controller (abs)
 * [ ] MatchFactory
-* [ ] Gameeplay
+* [ ] Gameplay
+* [ ] PlayerClient
+* [ ] PlayerCache
+* [ ] 

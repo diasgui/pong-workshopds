@@ -2,6 +2,7 @@
 ## Backend-Client Interface
 * [ ] create
 * [ ] authenicate
+* [ ] vim
 * [ ] learderboard
 * [ ] findmatch
 

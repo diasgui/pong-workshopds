@@ -11,9 +11,10 @@ defmodule PongBackendWeb.PlayerView do
   end
 
   def render("player.json", %{player: player}) do
-    %{id: player.id,
+    %{
       name: player.name,
       wins: player.wins,
-      losses: player.losses}
+      losses: player.losses
+    }
   end
 end

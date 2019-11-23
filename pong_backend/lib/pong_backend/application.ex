@@ -11,9 +11,10 @@ defmodule PongBackend.Application do
       # Start the Ecto repository
       PongBackend.Repo,
       # Start the endpoint when the application starts
-      PongBackendWeb.Endpoint
+      PongBackendWeb.Endpoint,
       # Starts a worker by calling: PongBackend.Worker.start_link(arg)
       # {PongBackend.Worker, arg},
+      {Redix, [name: RedixConnection, host: "localhost", port: 6379]},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

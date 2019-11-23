@@ -48,4 +48,11 @@ defmodule PongBackendWeb.PlayerController do
       render(conn, "show.json", player: player)
     end
   end
+
+  def leaderboard(conn, _params) do
+    with {:ok, leaderboard} <- Redix.command(RedixConnection, ["ZREVRANGEBYSCORE", "leaderboard", "+inf", "-inf"]) do
+      players = for player_id <- leaderboard, do: Accounts.get_player!(player_id)
+      render(conn, "index.json", players: players)
+    end
+  end
 end

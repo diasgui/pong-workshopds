@@ -27,3 +27,8 @@
 * [ ] PlayerClient
 * [ ] PlayerCache
 * [ ] 
+* 
+
+# References
+* SimpleJSON: A lib to parse json text (https://github.com/Bunny83/SimpleJSON)
+* 

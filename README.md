@@ -31,4 +31,6 @@
 
 # References
 * SimpleJSON: A lib to parse json text (https://github.com/Bunny83/SimpleJSON)
-* 
+We use this lib to parse our requests responses on client side.
+* Anti-if: A design pattern that helps with code maintenance (https://code.joejag.com/2016/anti-if-the-missing-patterns.html)
+We adopt this design pattern and show some use cases on this application.

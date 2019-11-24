@@ -4,21 +4,29 @@ using UnityEngine;
 
 public class ViewControllerFactory
 {
-    private SceneWireframe _wireframe;
-    private AssetLoader _assetLoader;
+    private readonly SceneWireframe _wireframe;
+    private readonly AssetLoader _assetLoader;
 
-    private PlayerCache _playerCache;
+    private readonly PlayerCache _playerCache;
+    private readonly PlayerClient _playerClient;
 
-    public ViewControllerFactory(SceneWireframe wireframe, AssetLoader assetLoader, PlayerCache playerCache)
+    public ViewControllerFactory(SceneWireframe wireframe, AssetLoader assetLoader, PlayerCache playerCache, PlayerClient playerClient)
     {
         _wireframe = wireframe;
         _assetLoader = assetLoader;
         _playerCache = playerCache;
+        _playerClient = playerClient;
     }
 
     public MainMenuViewController CreateMainMenuViewController()
     {
-        var view = _assetLoader.LoadView<MainMenuView>("MainMenu");
-        return new MainMenuViewController(view, _playerCache);
+        var view = _assetLoader.LoadView<MainMenuView>("MainMenuView");
+        return new MainMenuViewController(view, _playerCache, _playerClient, this, _wireframe);
+    }
+    
+    public LeaderboardViewController CreatLeaderboardViewController()
+    {
+        var view = _assetLoader.LoadView<LeaderboardView>("LeaderboardView");
+        return new LeaderboardViewController(view, _playerCache);
     }
 }

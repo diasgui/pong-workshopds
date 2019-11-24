@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public static class ServerDefines
 {
@@ -22,6 +23,11 @@ public class ClientRequester : MonoBehaviour
     {
         RequestFailCallback = null;
     }
+
+    public void RequestGet(string route, Action<JSONObject> success, Action fail = null)
+    {
+        StartCoroutine(SendGet(route, success, fail));
+    }
     
     public void Request(string route, Dictionary<string, string> parameters, Action<JSONObject> success, Action fail = null)
     {
@@ -31,7 +37,7 @@ public class ClientRequester : MonoBehaviour
             form.AddField(parameter.Key, parameter.Value);
         }
         
-        StartCoroutine(Post(route, form, form.headers, success, fail));
+        StartCoroutine(SendPost(route, form, form.headers, success, fail));
     }
     
     public void RequestAuth(string route, Dictionary<string, string> parameters, Action<JSONObject> success, Action fail = null)
@@ -45,10 +51,10 @@ public class ClientRequester : MonoBehaviour
         Dictionary<string, string> headers = form.headers;
         headers["Authorization"] = "Bearer " + Token;
         
-        StartCoroutine(Post(route, form, headers, success, fail));
+        StartCoroutine(SendPost(route, form, headers, success, fail));
     }
 
-    IEnumerator Post(string route, WWWForm form, Dictionary<string, string> headers, Action<JSONObject> success, Action fail)
+    IEnumerator SendPost(string route, WWWForm form, Dictionary<string, string> headers, Action<JSONObject> success, Action fail)
     {
         Debug.Log($"Will send request: {ServerDefines.BaseURL + route}");
         using (WWW www = new WWW(ServerDefines.BaseURL + route, form.data, headers))
@@ -66,6 +72,26 @@ public class ClientRequester : MonoBehaviour
             {
                 Debug.LogError($"Error: {www.error}");
                 fail?.Invoke();
+            }
+        }
+    }
+
+    IEnumerator SendGet(string route, Action<JSONObject> success, Action fail)
+    {
+        Debug.Log($"Will send request: {ServerDefines.BaseURL + route}");
+        using (UnityWebRequest www = UnityWebRequest.Get(ServerDefines.BaseURL + route))
+        {
+            yield return www.SendWebRequest();
+            if(www.isNetworkError || www.isHttpError) {
+                Debug.LogError($"Error: {www.error}");
+                fail?.Invoke();
+            }
+            else
+            {
+                JSONObject response = JSON.Parse(www.downloadHandler.text)["data"].AsObject;
+                
+                Debug.Log($"{www.downloadHandler.text}");
+                success?.Invoke(response);
             }
         }
     }

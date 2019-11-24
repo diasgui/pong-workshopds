@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2770601882
+CRC: 1386764755
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 6fa1cc1b36fd7130d7358fe54b4d56f4
+    Hash: 088b2f93b59e1945f50376fe627930e4
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 25a606de56c5a872f7f774bb3daa372f
+    Hash: dd52269aea4e5c86d17063cd00d61a10
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -35,6 +35,10 @@ ClassTypes:
   Script: {fileID: 11500000, guid: 878b50f3928a847b2bbc55a31aac8b88, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: d5d7236faaef14729865d6e7241f6d9e, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a8ff756baeeb84c58a075e2af0fbdc35, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 46d2f89e03b03473f9a75d05aa8723cd, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
@@ -46,5 +50,7 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 Assets:
-- Assets/UI/Prefabs/MainMenu.prefab
+- Assets/UI/Prefabs/LeaderboardView.prefab
+- Assets/UI/Prefabs/MainMenuView.prefab
+- Assets/UI/Prefabs/ChangeNameView.prefab
 Dependencies: []

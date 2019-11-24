@@ -24,7 +24,7 @@ public class PlayerClient
             _playerCache.PlayerId = response["id"];
             _playerCache.Wins = response["wins"];
             _playerCache.Loses = response["losses"];
-            _playerCache.PlayerName = response["name"];
+//            _playerCache.PlayerName = response["name"];
             
             success?.Invoke();
         });
@@ -40,7 +40,7 @@ public class PlayerClient
             _playerCache.PlayerId = response["id"];
             _playerCache.Wins = response["wins"];
             _playerCache.Loses = response["losses"];
-            _playerCache.PlayerName = response["name"];
+//            _playerCache.PlayerName = response["name"];
             
             success?.Invoke();
         });
@@ -68,7 +68,7 @@ public class PlayerClient
 
     public void LeaderBoard(Action success, Action fail)
     {
-        _client.Request("get_leaderboard", new Dictionary<string, string>(), (response) =>
+        _client.RequestGet("leaderboard", (response) =>
         {
            // TODO: Implement 
         });

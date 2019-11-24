@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameInitializer
 {
+    SceneWireframe _wireframe;
     PlayerClient _playerClient;
     PlayerCache _playerCache;
     ViewControllerFactory _viewControllerFactory;
@@ -11,9 +12,11 @@ public class GameInitializer
     
     public GameInitializer(ClientRequester clientRequester, SceneWireframe wireframe, AssetLoader assetLoader)
     {
+        _wireframe = wireframe;
+        
         _playerCache = new PlayerCache();
         _playerClient = new PlayerClient(clientRequester, _playerCache);
-        _viewControllerFactory = new ViewControllerFactory(wireframe, assetLoader, _playerCache);
+        _viewControllerFactory = new ViewControllerFactory(wireframe, assetLoader, _playerCache, _playerClient);
         _matchFactory = new MatchFactory();
     }
 
@@ -30,6 +33,6 @@ public class GameInitializer
         
         var vc = _viewControllerFactory.CreateMainMenuViewController();
         vc.Setup();
-        vc.Present();
+        _wireframe.PresentView(vc.View);
     }
 }

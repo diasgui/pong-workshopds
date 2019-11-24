@@ -8,9 +8,9 @@ public class SceneWireframe : MonoBehaviour
     {
         foreach (Transform child in _uiHolder)
         {
-            Destroy(child);
+            Destroy(child.gameObject);
         }
         
-        view.transform.SetParent(_uiHolder);
+        view.transform.SetParent(_uiHolder, true);
     }
 }

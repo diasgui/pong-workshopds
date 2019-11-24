@@ -5,9 +5,7 @@ using UnityEngine.UI;
 public class MainMenuView : View
 {
     [Header("TopBar")] 
-    [SerializeField] Text _playerNameLabel;
-    [SerializeField] Text _playerWinsLabel;
-    [SerializeField] Text _playerLossesLabel;
+    [SerializeField] PlayerInfoCellView _playerInfo;
     
     [Header("Buttons")]
     [SerializeField] Transform _buttonsHolder;
@@ -15,9 +13,7 @@ public class MainMenuView : View
 
     public void UpdatePlayerInfo(string name, int wins, int losses)
     {
-        _playerNameLabel.text = name;
-        _playerWinsLabel.text = $"W: {wins}";
-        _playerLossesLabel.text = $"L: {losses}";
+        _playerInfo.UpdatePlayerInfo(name, wins, losses);
     }
 
     public void AddButton(string buttonText, Action buttonCallback)

@@ -12,30 +12,37 @@ public class PlayerClient
         _client = clientRequester;
     }
     
-
-    public void CreatePlayer()
+    public void CreatePlayer(Action success)
     {
         _playerCache.PlayerId = "";
 
         var parameters = new Dictionary<string, string>();
         parameters["name"] = _playerCache.PlayerName;
         
-        _client.Request("sign_up", parameters, (data) =>
+        _client.Request("sign_up", parameters, (response) =>
         {
-            _playerCache.PlayerId = data["playerId"];
+            _playerCache.PlayerId = response["id"];
+            _playerCache.Wins = response["wins"];
+            _playerCache.Loses = response["losses"];
+            _playerCache.PlayerName = response["name"];
+            
+            success?.Invoke();
         });
     }
 
-    public void AuthenticatePlayer()
+    public void AuthenticatePlayer(Action success)
     {
         var parameters = new Dictionary<string, string>();
-        parameters["playerId"] = _playerCache.PlayerId;
+        parameters["id"] = _playerCache.PlayerId;
         
-        _client.Request("sign_in", parameters, (data) =>
+        _client.Request("sign_in", parameters, (response) =>
         {
-            _playerCache.Loses = int.Parse(data["wins"]);
-            _playerCache.Wins = int.Parse(data["loses"]);
-            _playerCache.PlayerName = data["name"];
+            _playerCache.PlayerId = response["id"];
+            _playerCache.Wins = response["wins"];
+            _playerCache.Loses = response["losses"];
+            _playerCache.PlayerName = response["name"];
+            
+            success?.Invoke();
         });
     }
 
@@ -45,10 +52,15 @@ public class PlayerClient
         _playerCache.PlayerName = name;
         
         var parameters = new Dictionary<string, string>();
-        parameters["playerId"] = _playerCache.PlayerId;
         parameters["name"] = name;
         
-        _client.RequestAuth("change_name", parameters, null, () =>
+        _client.RequestAuth("change_name", parameters, (response) =>
+        {
+            _playerCache.PlayerId = response["id"];
+            _playerCache.Wins = response["wins"];
+            _playerCache.Loses = response["losses"];
+            _playerCache.PlayerName = response["name"];
+        }, () =>
         {
             _playerCache.PlayerName = oldName;
         });
@@ -56,7 +68,7 @@ public class PlayerClient
 
     public void LeaderBoard(Action success, Action fail)
     {
-        _client.Request("get_leaderboard", new Dictionary<string, string>(), (data) =>
+        _client.Request("get_leaderboard", new Dictionary<string, string>(), (response) =>
         {
            // TODO: Implement 
         });
@@ -65,7 +77,6 @@ public class PlayerClient
     public void FindMatch()
     {
         var parameters = new Dictionary<string, string>();
-        parameters["playerId"] = _playerCache.PlayerId;
         
         _client.RequestAuth("find_match", parameters, (data) =>
         {

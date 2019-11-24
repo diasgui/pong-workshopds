@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface PlayerCacheReadOnly
+public interface IPlayerCacheReadOnly
 {
     string PlayerName { get; }
     int Score { get; }
@@ -15,7 +15,7 @@ public static class PlayerPrefsConst
     public static readonly string PlayerName = "playerName";
 }
 
-public class PlayerCache : PlayerCacheReadOnly
+public class PlayerCache : IPlayerCacheReadOnly
 {
     string _playerId;
     
@@ -49,6 +49,7 @@ public class PlayerCache : PlayerCacheReadOnly
         {
             _playerName = value;
             PlayerPrefs.SetString(PlayerPrefsConst.PlayerName, _playerName);
+            PlayerPrefs.Save();
         }
     }
     
@@ -62,6 +63,7 @@ public class PlayerCache : PlayerCacheReadOnly
         {
             _playerId = value;
             PlayerPrefs.SetString(PlayerPrefsConst.PlayerId, _playerId);
+            PlayerPrefs.Save();
         }
     }
 

@@ -9,19 +9,27 @@ public class GameInitializer
     ViewControllerFactory _viewControllerFactory;
     MatchFactory _matchFactory;
     
-    public GameInitializer(ClientRequester clientRequester)
+    public GameInitializer(ClientRequester clientRequester, SceneWireframe wireframe, AssetLoader assetLoader)
     {
         _playerCache = new PlayerCache();
         _playerClient = new PlayerClient(clientRequester, _playerCache);
-        _viewControllerFactory = new ViewControllerFactory();
+        _viewControllerFactory = new ViewControllerFactory(wireframe, assetLoader, _playerCache);
         _matchFactory = new MatchFactory();
     }
 
     public void Initialize()
     {
-        // TODO: Load some loading screen assets
-        if(_playerCache.HasId) _playerClient.AuthenticatePlayer();
-        else _playerClient.CreatePlayer();
-        // TODO: Display Main Menu
+        // TODO: Add loading screen
+        if(_playerCache.HasId) _playerClient.AuthenticatePlayer(DisplayMainMenu);
+        else _playerClient.CreatePlayer(DisplayMainMenu);
+    }
+
+    void DisplayMainMenu()
+    {
+        Debug.Log($"{_playerCache.PlayerName}: ({_playerCache.Wins}/{_playerCache.Loses})");
+        
+        var vc = _viewControllerFactory.CreateMainMenuViewController();
+        vc.Setup();
+        vc.Present();
     }
 }

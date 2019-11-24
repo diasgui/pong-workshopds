@@ -1,60 +1,71 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using SimpleJSON;
 using UnityEngine;
-using UnityEngine.Networking;
+
+public static class ServerDefines
+{
+#if UNITY_EDITOR
+    public static readonly string BaseURL = "http://localhost:4000/api/";
+#else
+    public static readonly string BaseURL = "http://192.168.0.14:4000/api/";
+#endif
+}
 
 public class ClientRequester : MonoBehaviour
 {
+    [HideInInspector] public string Token;
     public event Action RequestFailCallback;
-    string _token;
 
     public void Clear()
     {
         RequestFailCallback = null;
     }
     
-    public void Request(string route, Dictionary<string, string> parameters, Action<Dictionary<string, string>> success, Action fail = null)
+    public void Request(string route, Dictionary<string, string> parameters, Action<JSONObject> success, Action fail = null)
     {
         WWWForm form = new WWWForm();
         foreach (var parameter in parameters)
         {
             form.AddField(parameter.Key, parameter.Value);
         }
-        form.headers["Content-Type"] = "application/json";
         
-        StartCoroutine(Post(route, form, success, fail));
+        StartCoroutine(Post(route, form, form.headers, success, fail));
     }
     
-    public void RequestAuth(string route, Dictionary<string, string> parameters, Action<Dictionary<string, string>> success, Action fail = null)
+    public void RequestAuth(string route, Dictionary<string, string> parameters, Action<JSONObject> success, Action fail = null)
     {
         WWWForm form = new WWWForm();
         foreach (var parameter in parameters)
         {
             form.AddField(parameter.Key, parameter.Value);
         }
-        form.headers["Authorization"] = "Bearer " + _token;
-        form.headers["Content-Type"] = "application/json";
         
-        StartCoroutine(Post(route, form, success, fail));
+        Dictionary<string, string> headers = form.headers;
+        headers["Authorization"] = "Bearer " + Token;
+        
+        StartCoroutine(Post(route, form, headers, success, fail));
     }
 
-    IEnumerator Post(string route, WWWForm form, Action<Dictionary<string, string>> success, Action fail)
+    IEnumerator Post(string route, WWWForm form, Dictionary<string, string> headers, Action<JSONObject> success, Action fail)
     {
-        using (UnityWebRequest www = UnityWebRequest.Post("http://" + route, form))// TODO: Fix route with full URL
+        Debug.Log($"Will send request: {ServerDefines.BaseURL + route}");
+        using (WWW www = new WWW(ServerDefines.BaseURL + route, form.data, headers))
         {
-            yield return www.SendWebRequest();
-
-            if (www.isNetworkError || www.isHttpError)
+            yield return www;
+            if (string.IsNullOrEmpty(www.error))
             {
-                Debug.LogError($"{www.responseCode}: {www.GetResponseHeaders()}");
-                if (fail != null) fail.Invoke();
-                else RequestFailCallback?.Invoke();
+                JSONObject response = JSON.Parse(www.text)["data"].AsObject;
+                if (response["token"] != null) Token = response["token"];
+                
+                Debug.Log($"{www.text}");
+                success?.Invoke(response);
             }
             else
             {
-                success?.Invoke(www.GetResponseHeaders());
-                www.GetResponseHeaders().TryGetValue("auth_token", out _token);
+                Debug.LogError($"Error: {www.error}");
+                fail?.Invoke();
             }
         }
     }

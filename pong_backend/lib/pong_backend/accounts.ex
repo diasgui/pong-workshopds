@@ -101,4 +101,12 @@ defmodule PongBackend.Accounts do
   def change_player(%Player{} = player) do
     Player.changeset(player, %{})
   end
+
+  def increment_wins(player_id) do
+    Repo.update_all(from(p in Player, update: [inc: [wins: 1]], where: p.id == ^player_id, select: p.wins), [])
+  end
+
+  def increment_losses(player_id) do
+    Repo.update_all(from(p in Player, update: [inc: [losses: 1]], where: p.id == ^player_id, select: p.losses), [])
+  end
 end

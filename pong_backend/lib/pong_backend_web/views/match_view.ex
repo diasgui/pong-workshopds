@@ -4,14 +4,20 @@ defmodule PongBackendWeb.MatchView do
 
   def render("waiting.json", %{}) do
     %{
-      status: "waiting"
+      status: :waiting
     }
   end
 
   def render("found.json", %{match_url: match_url}) do
     %{
-      status: "found",
+      status: :found,
       match_url: match_url
+    }
+  end
+
+  def render("success.json", %{}) do
+    %{
+      status: :ok
     }
   end
 end

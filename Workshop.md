@@ -177,7 +177,24 @@ resources "/players", PlayerController
 ## 11 - JWS
 Vamos adicionar o guardian no elixir como dependencia, editando o arquivo `mix.ex` na raiz do projeto:
 ```
-defp deps do
-  [{:guardian, "~> 2.0"}]
-end
+34    defp deps do
+  1     [
+  2       {:phoenix, "~> 1.4.7"},
+  3       {:phoenix_pubsub, "~> 1.1"},
+  4       {:phoenix_ecto, "~> 4.0"},
+  5       {:ecto_sql, "~> 3.0"},
+  6       {:postgrex, ">= 0.0.0"},
+  7       {:gettext, "~> 0.11"},
+  8       {:jason, "~> 1.0"},
+  9       {:plug_cowboy, "~> 2.0"},
+ 10       {:guardian, "~> 1.2"},
+ 11       {:comeonin, "~> 5.1"},
+ 12       {:bcrypt_elixir, "~> 2.0"},
+ 13       {:redix, ">= 0.0.0"}
+ 14     ]
+ 15   end
+```
+E baixar as dependencias:
+```
+mix deps.get 
 ```

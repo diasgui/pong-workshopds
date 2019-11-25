@@ -94,7 +94,7 @@ mix phx.gen.json Accounts Player players name:string wins:integer losses:integer
 ```
 Para gerar o modelo no nosso banco de dados, precisamos rodar:
 ```
-mix ecto.generate
+mix ecto.migrate
 ```
 
 E ver como ficou nosso BD:

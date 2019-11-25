@@ -174,3 +174,10 @@ Vamos editar o `lib/pong_backend_web/router.ex` edicionar no escopo da API (`sco
 resources "/players", PlayerController
 ```
 
+## 11 - JWS
+Vamos adicionar o guardian no elixir como dependencia, editando o arquivo `mix.ex` na raiz do projeto:
+```
+defp deps do
+  [{:guardian, "~> 2.0"}]
+end
+```

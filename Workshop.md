@@ -18,3 +18,7 @@ Se sua vesãon do docker-compose for menor que 3, corrija o `docker-compose.yaml
 ```
 sudo ./start.sh
 ```
+
+## 4 - Conectar no Database
+sudo docker exec -it pong_postgres psql -U pong_user -d pong
+

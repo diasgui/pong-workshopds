@@ -26,10 +26,10 @@ sudo docker exec -it pong_postgres psql -U pong_user -d pong
 ```
 Dentro do postgre
 ```
-create TABLE test {
+create TABLE test (
     id integer,
     name varchar(40)
-};
+);
 ```
 Vamos apagar
 ```

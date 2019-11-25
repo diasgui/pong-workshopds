@@ -135,3 +135,29 @@ E vamos fazer a migração novamente:
 ```
 mix ecto.migrate
 ```
+
+Agora editamos nosso modelo de player `lib/pong_backend/accounts/player.ex`, adicionando a primary key:
+```
+1   defmodule PongBackend.Accounts.Player do
+  1   use Ecto.Schema
+  2   import Ecto.Changeset
+  3 
+  4   @primary_key {:id, :binary_id, autogenerate: true}
+  5 
+  6   schema "players" do
+  7     field :losses, :integer
+  8     field :name, :string
+  9     field :wins, :integer
+ 10 
+ 11     timestamps()
+ 12   end
+ 13 
+ 14   @doc false
+ 15   def changeset(player, attrs) do
+ 16     player
+ 17     |> cast(attrs, [:name, :wins, :losses])
+ 18     |> validate_required([:name, :wins, :losses])
+ 19   end
+ 20 end
+```
+

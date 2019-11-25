@@ -54,5 +54,5 @@ sudo apt-get install elixir
 Vamos instalar o phoenix usando o mix:
 ```
 mix local.hex
-mix archieve.install hex phx_new 1.4.11
+mix archive.install hex phx_new 1.4.11
 ```

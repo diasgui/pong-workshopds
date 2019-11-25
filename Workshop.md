@@ -43,3 +43,11 @@ Vamos testar o redis
 ```
 sudo docker exec -it pong_redis redis-cli
 ```
+
+## 5 - Let's MIX
+Primeiro, vamos instalar a versão atualizada do Elixir, rodando um a um os comandos a baixo:
+```
+wget https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb && sudo dpkg -i erlang-solutions_2.0_all.deb
+sudo apt-get update
+sudo apt-get install elixir
+```

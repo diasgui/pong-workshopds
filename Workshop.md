@@ -51,3 +51,8 @@ wget https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb && sudo 
 sudo apt-get update
 sudo apt-get install elixir
 ```
+Vamos instalar o phoenix usando o mix:
+```
+mix local.hex
+mix archieve.install hex phx_new 1.4.11
+```

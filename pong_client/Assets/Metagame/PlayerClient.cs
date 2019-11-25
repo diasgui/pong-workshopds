@@ -24,7 +24,6 @@ public class PlayerClient
             _playerCache.PlayerId = response["id"];
             _playerCache.Wins = response["wins"];
             _playerCache.Loses = response["losses"];
-//            _playerCache.PlayerName = response["name"];
             
             success?.Invoke();
         });
@@ -40,7 +39,6 @@ public class PlayerClient
             _playerCache.PlayerId = response["id"];
             _playerCache.Wins = response["wins"];
             _playerCache.Loses = response["losses"];
-//            _playerCache.PlayerName = response["name"];
             
             success?.Invoke();
         });
@@ -56,7 +54,6 @@ public class PlayerClient
         
         _client.RequestAuth("change_name", parameters, (response) =>
         {
-            _playerCache.PlayerId = response["id"];
             _playerCache.Wins = response["wins"];
             _playerCache.Loses = response["losses"];
             _playerCache.PlayerName = response["name"];
@@ -77,6 +74,7 @@ public class PlayerClient
     public void FindMatch()
     {
         var parameters = new Dictionary<string, string>();
+        parameters["url"] = "http://192.168.0.14:7777";
         
         _client.RequestAuth("find_match", parameters, (data) =>
         {
@@ -95,8 +93,15 @@ public class PlayerClient
         // Observer
     }
 
-    public void MatchEnded(int playerScore, int opponentScore)
+    public void MatchEnded(string winnerId, string loserId)
     {
-        // TODO: Call match ended
+        var parameters = new Dictionary<string, string>();
+        parameters["winner_id"] = winnerId;
+        parameters["loser_id"] = loserId;
+        
+        _client.RequestAuth("match_end", parameters, (data) =>
+        {
+            
+        });
     }
 }

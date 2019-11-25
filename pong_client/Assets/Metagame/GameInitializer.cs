@@ -34,5 +34,7 @@ public class GameInitializer
         var vc = _viewControllerFactory.CreateMainMenuViewController();
         vc.Setup();
         _wireframe.PresentView(vc.View);
+        
+//        _playerClient.MatchEnded("fb0e1c63-9466-49a8-80ad-8fec7929bec7", _playerCache.PlayerId);
     }
 }

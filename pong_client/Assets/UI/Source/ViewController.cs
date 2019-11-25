@@ -7,16 +7,10 @@ public abstract class ViewController<T> where T:View
     protected ViewController(T view)
     {
         _view = view;
-        
-//        _view.gameObject.SetActive(false);
+        _view.OnDestroyCallback = Dismiss;
     }
 
-    public void Present()
-    {
-//        _view.gameObject.SetActive(true);
-    }
-
-    public void Dispose()
+    public virtual void Dismiss()
     {
 //        _view.gameObject.SetActive(false);
         // TODO: Destroy and clear...

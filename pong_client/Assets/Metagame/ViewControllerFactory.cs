@@ -29,4 +29,10 @@ public class ViewControllerFactory
         var view = _assetLoader.LoadView<LeaderboardView>("LeaderboardView");
         return new LeaderboardViewController(view, _playerCache);
     }
+
+    public ChangeNameViewController CreateChangeNameViewController()
+    {
+        var view = _assetLoader.LoadView<ChangeNameView>("ChangeNameView");
+        return new ChangeNameViewController(view, _playerClient);
+    }
 }

@@ -56,7 +56,7 @@ public class ClientRequester : MonoBehaviour
 
     IEnumerator SendPost(string route, WWWForm form, Dictionary<string, string> headers, Action<JSONObject> success, Action fail)
     {
-        Debug.Log($"Will send request: {ServerDefines.BaseURL + route}");
+        Debug.Log($"POST: {ServerDefines.BaseURL + route}");
         using (WWW www = new WWW(ServerDefines.BaseURL + route, form.data, headers))
         {
             yield return www;
@@ -78,7 +78,7 @@ public class ClientRequester : MonoBehaviour
 
     IEnumerator SendGet(string route, Action<JSONObject> success, Action fail)
     {
-        Debug.Log($"Will send request: {ServerDefines.BaseURL + route}");
+        Debug.Log($"GET: {ServerDefines.BaseURL + route}");
         using (UnityWebRequest www = UnityWebRequest.Get(ServerDefines.BaseURL + route))
         {
             yield return www.SendWebRequest();

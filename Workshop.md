@@ -101,6 +101,10 @@ E ver como ficou nosso BD:
 ```
 sudo docker exec -it pong_postgres psql -U pong_user -d pong
 \d
+\d players
+```
+A tabela nao ficou como queriamos. Vamos editar a migracao antes de rodar! Primeiro, apagamos o que foi gerado:
+```
 drop table players;
 drop table players_id_seq;
 drop table scheme_migrations;

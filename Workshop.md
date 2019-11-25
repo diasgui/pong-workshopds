@@ -161,3 +161,8 @@ Agora editamos nosso modelo de player `lib/pong_backend/accounts/player.ex`, adi
  20 end
 ```
 
+## 9 - Postman
+Vamos instalar o postman:
+```
+snap install postman
+```

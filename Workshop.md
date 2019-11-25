@@ -37,7 +37,7 @@ drop table test;
 ```
 Para sair:
 ```
-/q
+\q
 ```
 Vamos testar o redis
 ```

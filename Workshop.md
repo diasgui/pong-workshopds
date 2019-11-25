@@ -20,9 +20,26 @@ sudo ./start.sh
 ```
 
 ## 4 - Conectar no Database
+Vamos testar a criação de uma tabela
 ```
 sudo docker exec -it pong_postgres psql -U pong_user -d pong
 ```
+Dentro do postgre
+```
+create TABLE test {
+    id integer,
+    name varchar(40)
+};
+```
+Vamos apagar
+```
+drop table test;
+```
+Para sair:
+```
+/q
+```
+Vamos testar o redis
 ```
 sudo docker exec -it pong_redis redis-cli
 ```

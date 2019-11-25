@@ -87,6 +87,8 @@ mix phx.server
 ```
 Devemos ter um servidor rodando agora :-D
 
+## 8 - Modelos
+Vamos criar o modelo de um player
 ```
 mix phx.gen.json Accounts Player players name:string wins:integer losses:integer
 ```

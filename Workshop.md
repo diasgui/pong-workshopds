@@ -162,11 +162,13 @@ Agora editamos nosso modelo de player `lib/pong_backend/accounts/player.ex`, adi
 ```
 
 ## 9 - Postman
-Vamos instalar o postman:
+Vamos instalar o postman, para testar nossas rotas:
 ```
 sudo snap install postman
 ```
+Você também pode usar o comando `curl`.
 
+## 10 - Rotas
 Vamos editar o `lib/pong_backend_web/router.ex` edicionar no escopo da API (`scope "/api"`):
 ```
 resources "/players", PlayerController

@@ -101,5 +101,28 @@ E ver como ficou nosso BD:
 ```
 sudo docker exec -it pong_postgres psql -U pong_user -d pong
 \d
+drop table players;
+drop table players_id_seq;
+drop table scheme_migrations;
+\q
 ```
 
+Vamos editar nossa migracao, para corrigir nosso banco de dados. Edite o arquivo `priv/repo/migrations/20191123201459_create_players.exs` (o nome do seu arquivo será diferente)
+```
+    defmodule PongBackend.Repo.Migrations.CreatePlayers do
+  1   use Ecto.Migration
+  2 
+  3   def change do
+  4     create table(:players, primary_key: false) do
+  5       add :id, :uuid, primary_key: true
+  6       add :name, :string
+  7       add :wins, :integer
+  8       add :losses, :integer
+  9 
+ 10       timestamps()
+ 11     end
+ 12 
+ 13   end
+ 14 end
+
+```

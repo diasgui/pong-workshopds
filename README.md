@@ -1,3 +1,28 @@
+## Requisitos
+Backend:
+* docker
+* postgrees
+* redis
+* elixir
+
+Frontend:
+* Unity
+
+### Instalação
+#### Ubuntu / Debian / Mint
+Unity Hub: https://public-cdn.cloud.unity3d.com/hub/prod/UnityHub.AppImage
+Backend: sudo apt-get install docker docker.io pgcli redis-tools elixir
+
+### Arch
+[...]
+
+### Windows
+Unity Hub: https://public-cdn.cloud.unity3d.com/hub/prod/UnityHubSetup.exe
+Backend: [...]
+### MacOs
+Unity Hub: https://public-cdn.cloud.unity3d.com/hub/prod/UnityHubSetup.dmg
+Backend: [...]
+
 ## Backend-Client Interface
 * [ ] create
 * [ ] authenicate

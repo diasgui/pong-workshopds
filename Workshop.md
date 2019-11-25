@@ -12,7 +12,9 @@ Crie uma pasta no seu computador onde vamos criar o backend (por exemplo `mkdir 
 * Makefile
 * start.sh
 
+Se sua vesãon do docker-compose for menor que 3, corrija o `docker-compose.yaml` para usar a versao 2.
+
 ## 3 - Subir a imagem docker
 ```
-./start.sh
+sudo ./start.sh
 ```

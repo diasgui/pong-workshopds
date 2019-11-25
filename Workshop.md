@@ -56,3 +56,12 @@ Vamos instalar o phoenix usando o mix:
 mix local.hex
 mix archive.install hex phx_new 1.4.11
 ```
+
+## 6 - Let's create the project
+Vamos utilizar o boilerplate para subir o projeto inteiro:
+```
+mix phx.new pong_backend --database postgres --no-html --no-webpack --verbose
+mix deps.get
+mix phx.routes
+```
+

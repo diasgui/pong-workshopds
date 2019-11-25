@@ -164,5 +164,5 @@ Agora editamos nosso modelo de player `lib/pong_backend/accounts/player.ex`, adi
 ## 9 - Postman
 Vamos instalar o postman:
 ```
-snap install postman
+sudo snap install postman
 ```

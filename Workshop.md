@@ -92,3 +92,14 @@ Vamos criar o modelo de um player
 ```
 mix phx.gen.json Accounts Player players name:string wins:integer losses:integer
 ```
+Para gerar o modelo no nosso banco de dados, precisamos rodar:
+```
+mix ecto.generate
+```
+
+E ver como ficou nosso BD:
+```
+sudo docker exec -it pong_postgres psql -U pong_user -d pong
+\d
+```
+

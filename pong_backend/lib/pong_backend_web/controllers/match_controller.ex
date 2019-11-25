@@ -2,7 +2,6 @@ defmodule PongBackendWeb.MatchController do
   use PongBackendWeb, :controller
 
   alias PongBackend.Accounts
-  alias PongBackend.Accounts.Player
 
   action_fallback PongBackendWeb.FallbackController
 

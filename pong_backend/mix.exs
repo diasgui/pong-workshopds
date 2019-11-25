@@ -20,7 +20,7 @@ defmodule PongBackend.MixProject do
   def application do
     [
       mod: {PongBackend.Application, []},
-      extra_applications: [:logger, :runtime_tools, :comeonin]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
@@ -42,8 +42,6 @@ defmodule PongBackend.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:guardian, "~> 1.2"},
-      {:comeonin, "~> 5.1"},
-      {:bcrypt_elixir, "~> 2.0"},
       {:redix, ">= 0.0.0"}
     ]
   end

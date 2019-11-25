@@ -85,3 +85,4 @@ E rodar:
 ```
 mix phx.server
 ```
+Devemos ter um servidor rodando agora :-D

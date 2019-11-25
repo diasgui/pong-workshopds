@@ -83,5 +83,5 @@ config :pong_backend, PongBackend.Repo,
 ```
 E rodar:
 ```
-
+mix phx.server
 ```

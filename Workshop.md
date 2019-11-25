@@ -23,3 +23,6 @@ sudo ./start.sh
 ```
 sudo docker exec -it pong_postgres psql -U pong_user -d pong
 ```
+```
+sudo docker exec -it pong_redis redis-cli
+```

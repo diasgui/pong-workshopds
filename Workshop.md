@@ -65,3 +65,15 @@ mix deps.get
 mix phx.routes
 ```
 
+## 7 - Configurando nosso servidor
+Vamos editar as configuraçōes, abra o arquivo `config/dev.exs`:
+```
+# Configure your database
+config :pong_backend, PongBackend.Repo,
+    username: "pong_user",
+    password: "",
+    database: "pong",
+    hostname: "localhost",
+    show_sensitive_data_on_connection_error: true,
+    pool_size: 10
+```

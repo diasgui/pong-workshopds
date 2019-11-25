@@ -126,3 +126,8 @@ Vamos editar nossa migracao, para corrigir nosso banco de dados. Edite o arquivo
  14 end
 
 ```
+
+E vamos fazer a migração novamente:
+```
+mix ecto.migrate
+```

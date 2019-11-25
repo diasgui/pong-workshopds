@@ -166,3 +166,9 @@ Vamos instalar o postman:
 ```
 sudo snap install postman
 ```
+
+Vamos editar o `lib/pong_backend_web/router.ex` edicionar no escopo da API (`scope "/api"`):
+```
+resources "/players", PlayerController
+```
+

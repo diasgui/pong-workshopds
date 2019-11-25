@@ -61,9 +61,9 @@ mix archive.install hex phx_new 1.4.11
 Vamos utilizar o boilerplate para subir o projeto inteiro:
 ```
 mix phx.new pong_backend --database postgres --no-html --no-webpack --verbose
-mv docker-compose.yaml ./pong_backend
-mv Makefile ./pong_backend
-mv start.sh ./pong_backend
+mv docker-compose.yaml ./pong_backend/
+mv Makefile ./pong_backend/
+mv start.sh ./pong_backend/
 cd ./pong_backend
 mix deps.get
 mix phx.routes

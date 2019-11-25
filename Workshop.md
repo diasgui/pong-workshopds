@@ -20,5 +20,6 @@ sudo ./start.sh
 ```
 
 ## 4 - Conectar no Database
+```
 sudo docker exec -it pong_postgres psql -U pong_user -d pong
-
+```

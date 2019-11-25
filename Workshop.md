@@ -86,3 +86,7 @@ E rodar:
 mix phx.server
 ```
 Devemos ter um servidor rodando agora :-D
+
+```
+mix phx.gen.json Accounts Player players name:string wins:integer losses:integer
+```

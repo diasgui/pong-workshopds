@@ -3,7 +3,7 @@
 ## 1 - Instalar requisitos
 No terminal, digite:
 ```
-sudo apt-get install docker docker.io pgcli redis-tools elixir
+sudo apt-get install docker docker.io docker-compose pgcli redis-tools elixir
 ```
 
 ## 2 - Baixar primeiros arquivos
@@ -12,4 +12,7 @@ Crie uma pasta no seu computador onde vamos criar o backend (por exemplo `mkdir 
 * Makefile
 * start.sh
 
-
+## 3 - Subir a imagem docker
+```
+./start.sh
+```

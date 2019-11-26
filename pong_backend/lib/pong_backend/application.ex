@@ -14,7 +14,7 @@ defmodule PongBackend.Application do
       PongBackendWeb.Endpoint,
       # Starts a worker by calling: PongBackend.Worker.start_link(arg)
       # {PongBackend.Worker, arg},
-      {Redix, [name: RedixConnection, host: "localhost", port: 6379]},
+      {Redix, [name: RedixConnection, host: "localhost", port: 9001]},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

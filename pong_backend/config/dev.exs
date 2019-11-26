@@ -4,7 +4,7 @@ use Mix.Config
 config :pong_backend, PongBackend.Repo,
   username: "pong_user",
   password: "",
-  database: "pong_backend_dev",
+  database: "pong",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10

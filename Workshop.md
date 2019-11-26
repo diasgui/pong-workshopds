@@ -194,7 +194,14 @@ Vamos adicionar o guardian no elixir como dependencia, editando o arquivo `mix.e
  14     ]
  15   end
 ```
+
 E baixar as dependencias:
 ```
 mix deps.get 
 ```
+
+## 12 - Cuidando das requisiçōes
+Baixamos os arquivos do repositorio:
+* guardian.exs
+* 
+[...]

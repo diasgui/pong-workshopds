@@ -45,10 +45,15 @@ public class MainMenuViewController : ViewController<MainMenuView>, IPlayerCache
     void Leaderboard()
     {
         Debug.Log("LEADERBOARD");
-        _playerClient.LeaderBoard(() =>
+        _playerClient.LeaderBoard((ranking) =>
         {
             var vc = _viewControllerFactory.CreatLeaderboardViewController();
-            //vc.Setup();
+            vc.Setup(ranking, () =>
+            {
+                var mainMenu = _viewControllerFactory.CreateMainMenuViewController();
+                mainMenu.Setup();
+                _wireframe.PresentView(mainMenu.View);
+            });
             _wireframe.PresentView(vc.View);
         }, () =>
         {

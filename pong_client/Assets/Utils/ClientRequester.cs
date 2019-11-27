@@ -24,7 +24,7 @@ public class ClientRequester : MonoBehaviour
         RequestFailCallback = null;
     }
 
-    public void RequestGet(string route, Action<JSONObject> success, Action fail = null)
+    public void RequestGet(string route, Action<JSONNode> success, Action fail = null)
     {
         StartCoroutine(SendGet(route, success, fail));
     }
@@ -76,7 +76,7 @@ public class ClientRequester : MonoBehaviour
         }
     }
 
-    IEnumerator SendGet(string route, Action<JSONObject> success, Action fail)
+    IEnumerator SendGet(string route, Action<JSONNode> success, Action fail)
     {
         Debug.Log($"GET: {ServerDefines.BaseURL + route}");
         using (UnityWebRequest www = UnityWebRequest.Get(ServerDefines.BaseURL + route))
@@ -88,7 +88,7 @@ public class ClientRequester : MonoBehaviour
             }
             else
             {
-                JSONObject response = JSON.Parse(www.downloadHandler.text)["data"].AsObject;
+                JSONNode response = JSON.Parse(www.downloadHandler.text)["data"];
                 
                 Debug.Log($"{www.downloadHandler.text}");
                 success?.Invoke(response);

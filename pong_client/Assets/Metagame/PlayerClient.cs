@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SimpleJSON;
 
 public class PlayerClient
 {
@@ -63,12 +64,22 @@ public class PlayerClient
         });
     }
 
-    public void LeaderBoard(Action success, Action fail)
+    public void LeaderBoard(Action<List<PlayerInfo>> success, Action fail)
     {
         _client.RequestGet("leaderboard", (response) =>
         {
-           // TODO: Implement 
+            List<PlayerInfo> ranking = new List<PlayerInfo>();
+            foreach (JSONObject player in response.AsArray)
+            {
+                ranking.Add(new PlayerInfo(
+                    player["name"], 
+                    player["wins"], 
+                    player["losses"])
+                );
+            }
+            success?.Invoke(ranking);
         });
+        // TODO: Add fail popup
     }
 
     public void FindMatch()

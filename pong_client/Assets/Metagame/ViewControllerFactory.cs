@@ -27,7 +27,7 @@ public class ViewControllerFactory
     public LeaderboardViewController CreatLeaderboardViewController()
     {
         var view = _assetLoader.LoadView<LeaderboardView>("LeaderboardView");
-        return new LeaderboardViewController(view, _playerCache);
+        return new LeaderboardViewController(view);
     }
 
     public ChangeNameViewController CreateChangeNameViewController()

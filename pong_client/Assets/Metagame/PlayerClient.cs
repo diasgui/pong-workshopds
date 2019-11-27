@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using SimpleJSON;
+using UnityEngine;
+using UnityEngine.Networking;
 
 public class PlayerClient
 {
@@ -22,9 +24,10 @@ public class PlayerClient
         
         _client.Request("sign_up", parameters, (response) =>
         {
-            _playerCache.PlayerId = response["id"];
-            _playerCache.Wins = response["wins"];
-            _playerCache.Loses = response["losses"];
+            var data = response.AsObject;
+            _playerCache.PlayerId = data["id"];
+            _playerCache.Wins = data["wins"];
+            _playerCache.Losses = data["losses"];
             
             success?.Invoke();
         });
@@ -37,9 +40,10 @@ public class PlayerClient
         
         _client.Request("sign_in", parameters, (response) =>
         {
-            _playerCache.PlayerId = response["id"];
-            _playerCache.Wins = response["wins"];
-            _playerCache.Loses = response["losses"];
+            var data = response.AsObject;
+            _playerCache.PlayerId = data["id"];
+            _playerCache.Wins = data["wins"];
+            _playerCache.Losses = data["losses"];
             
             success?.Invoke();
         });
@@ -55,9 +59,10 @@ public class PlayerClient
         
         _client.RequestAuth("change_name", parameters, (response) =>
         {
-            _playerCache.Wins = response["wins"];
-            _playerCache.Loses = response["losses"];
-            _playerCache.PlayerName = response["name"];
+            var data = response.AsObject;
+            _playerCache.Wins = data["wins"];
+            _playerCache.Losses = data["losses"];
+            _playerCache.PlayerName = data["name"];
         }, () =>
         {
             _playerCache.PlayerName = oldName;
@@ -82,26 +87,29 @@ public class PlayerClient
         // TODO: Add fail popup
     }
 
-    public void FindMatch()
+    public void FindMatch(Action<string> joinMatch, Action hostMatch)
     {
         var parameters = new Dictionary<string, string>();
-        parameters["url"] = "http://192.168.0.14:7777";
+        parameters["url"] = NetworkManager.singleton.networkAddress;
         
-        _client.RequestAuth("find_match", parameters, (data) =>
+        _client.RequestAuth("find_match", parameters, (response) =>
         {
-            // If there is already a player, have fun
-            // otherwise, we're fucked, and should assume server state
+            var data = response.AsObject;
+            string status = data["status"];
+            if (status == "found")
+            {
+                joinMatch(data["match_url"]);
+            }
+            else if (status == "waiting")
+            {
+                hostMatch();
+            }
+            else
+            {
+                Debug.LogError($"Unknown status: {status}");
+                Debug.LogError($"Unknown status: {data}");
+            }
         });
-    }
-
-    public void CancelMatch()
-    {
-        // TODO: We may implement this if there is enough time
-    }
-
-    public void MatchFound()
-    {
-        // Observer
     }
 
     public void MatchEnded(string winnerId, string loserId)

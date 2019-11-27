@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class AppDelegate : MonoBehaviour
@@ -8,6 +9,7 @@ public class AppDelegate : MonoBehaviour
     [SerializeField] ClientRequester _clientRequester;
     [SerializeField] SceneWireframe _wireframe;
     [SerializeField] AssetLoader _assetLoader;
+    [SerializeField] PongNetworkManager _networkManager;
     
     void Start()
     {
@@ -26,7 +28,7 @@ public class AppDelegate : MonoBehaviour
         _clientRequester.Clear();
         _clientRequester.RequestFailCallback += Restart;
         
-        new GameInitializer(_clientRequester, _wireframe, _assetLoader)// We may add inject some dependencies on this constructor
+        new GameInitializer(_clientRequester, _wireframe, _assetLoader, _networkManager)
             .Initialize();
     }
     

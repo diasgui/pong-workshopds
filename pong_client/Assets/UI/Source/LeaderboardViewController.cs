@@ -14,7 +14,4 @@ public class LeaderboardViewController : ViewController<LeaderboardView>
         View.Setup(backCallback);
         ranking.ForEach(player => View.AddPlayerCell(player));
     }
-    
-    
-    
 }

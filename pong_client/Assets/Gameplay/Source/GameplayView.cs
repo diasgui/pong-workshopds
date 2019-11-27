@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
-public class GameController : MonoBehaviour
+public class GameplayView : View
 {
     [Header("Game Entities")]
     [SerializeField] BallController _ballPrefab;
@@ -20,17 +22,30 @@ public class GameController : MonoBehaviour
     private int _hostScore;
     private int _guestScore;
 
+    private Action _hostWin;
+    private Action _guestWin;
+
+    public void Setup(Action hostWin, Action guestWin)
+    {
+        Assert.IsNotNull(hostWin);
+        Assert.IsNotNull(guestWin);
+        _hostWin = hostWin;
+        _guestWin = guestWin;
+    }
+
     public void AddPlayer(PlayerController player)
     {
         if (_hostController == null)
         {
             _hostController = player;
+            _hostController.transform.SetParent(_gameRect, false);
             _hostController.transform.position = _hostPlayerStartPosition.position;
             _hostController.Setup();
         }
         else if (_guestController == null)
         {
             _guestController = player;
+            _guestController.transform.SetParent(_gameRect, false);
             _guestController.transform.position = _guestPlayerStartPosition.position;
             _guestController.Setup();
         }
@@ -38,17 +53,19 @@ public class GameController : MonoBehaviour
         CheckStart();
     }
 
-    void CheckStart()
+    public void CheckStart()
     {
         if (_ballController == null)
         {
             _ballController = Instantiate(_ballPrefab, _gameRect);
+            _ballController.transform.SetParent(_gameRect, false);
             _ballController.transform.position = Vector3.zero;
             _ballController.Setup();
         }
         
         if (!_gameStarted && _hostController != null && _guestController != null)
         {
+            _gameStarted = true;
             StartRound();
         }
     }
@@ -57,11 +74,11 @@ public class GameController : MonoBehaviour
     {
         if (_hostScore >= 5)
         {
-            // TODO: Host wins
+            _hostWin();
         }
         else if (_guestScore >= 5)
         {
-            // TODO: Guest wins
+            _guestWin();
         }
         else
         {
@@ -73,6 +90,8 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        if (!_gameStarted) return;
+        
         Vector2 ballPosition = _ballController.transform.position;
         if (ballPosition.x > _gameRect.rect.width || ballPosition.x < 0)
         {

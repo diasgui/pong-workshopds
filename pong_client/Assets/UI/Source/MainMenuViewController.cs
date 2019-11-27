@@ -1,6 +1,4 @@
-﻿
-
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MainMenuViewController : ViewController<MainMenuView>, IPlayerCacheObserver
 {
@@ -22,7 +20,7 @@ public class MainMenuViewController : ViewController<MainMenuView>, IPlayerCache
         View.UpdatePlayerInfo(
             _playerCache.PlayerName.ToUpper(),
             _playerCache.Wins,
-            _playerCache.Loses
+            _playerCache.Losses
             );
         View.AddButton("PLAY", Play);
         View.AddButton("LEADERBOARD", Leaderboard);
@@ -39,7 +37,20 @@ public class MainMenuViewController : ViewController<MainMenuView>, IPlayerCache
     void Play()
     {
         Debug.Log("PLAY");
-        _playerClient.FindMatch();
+        var vc = _viewControllerFactory.CreateGameplayViewController();
+        _playerClient.FindMatch((serverIp) =>
+        {
+            Debug.Log($"Join Match: {serverIp}");
+            vc.Setup();
+            vc.Join(serverIp);
+            _wireframe.PresentView(vc.View);
+        }, () =>
+        {
+            Debug.Log("Host Match");
+            vc.Setup();
+            vc.Host();
+            _wireframe.PresentView(vc.View);
+        });
     }
 
     void Leaderboard()
@@ -52,9 +63,9 @@ public class MainMenuViewController : ViewController<MainMenuView>, IPlayerCache
             {
                 var mainMenu = _viewControllerFactory.CreateMainMenuViewController();
                 mainMenu.Setup();
-                _wireframe.PresentView(mainMenu.View);
+                _wireframe.PresentViewController(mainMenu);
             });
-            _wireframe.PresentView(vc.View);
+            _wireframe.PresentViewController(vc);
         }, () =>
         {
             Debug.LogError("Error getting leaderboard");
@@ -77,7 +88,7 @@ public class MainMenuViewController : ViewController<MainMenuView>, IPlayerCache
         View.UpdatePlayerInfo(
             _playerCache.PlayerName.ToUpper(),
             _playerCache.Wins,
-            _playerCache.Loses
+            _playerCache.Losses
         );
     }
 }

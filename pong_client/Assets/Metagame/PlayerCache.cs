@@ -6,7 +6,7 @@ public interface IPlayerCacheReadOnly
     string PlayerName { get; }
     int Score { get; }
     int Wins { get; }
-    int Loses { get; }
+    int Losses { get; }
     bool HasId { get; }
 
     void RegisterObserver(IPlayerCacheObserver observer);
@@ -30,7 +30,7 @@ public class PlayerCache : IPlayerCacheReadOnly
 
     private string _playerName;
     private int _wins;
-    private int _loses;
+    private int _losses;
 
     private List<IPlayerCacheObserver> _observers;
 
@@ -41,23 +41,20 @@ public class PlayerCache : IPlayerCacheReadOnly
         _observers = new List<IPlayerCacheObserver>();
     }
 
-    public void UpdateScore(int wins, int loses)
+    public void UpdateScore(int wins, int losses)
     {
         _wins = wins;
-        _loses = loses;
+        _losses = losses;
     }
 
     public void ChangeName(string name)
     {
         _playerName = name;
     }
-    
+
     public string PlayerName
     {
-        get
-        {
-            return _playerName;
-        }
+        get { return _playerName; }
         set
         {
             _playerName = value;
@@ -66,13 +63,10 @@ public class PlayerCache : IPlayerCacheReadOnly
             NotifyObservers();
         }
     }
-    
+
     public string PlayerId
     {
-        get
-        {
-            return _playerId;
-        }
+        get { return _playerId; }
         set
         {
             _playerId = value;
@@ -87,15 +81,15 @@ public class PlayerCache : IPlayerCacheReadOnly
         set => _wins = value;
     }
 
-    public int Loses
+    public int Losses
     {
-        get => _loses;
-        set => _loses = value;
+        get => _losses;
+        set => _losses = value;
     }
-    
-    public int Score => Wins - Loses;
+
+    public int Score => Wins - Losses;
     public bool HasId => !string.IsNullOrEmpty(_playerId);
-    
+
     public void RegisterObserver(IPlayerCacheObserver observer) => _observers.Add(observer);
     public void UnregisterObserver(IPlayerCacheObserver observer) => _observers.Remove(observer);
     public void NotifyObservers() => _observers.ForEach(o => o.PlayerCacheChanged());

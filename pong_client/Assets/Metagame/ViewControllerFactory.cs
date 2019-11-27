@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿
+using UnityEngine.Networking;
 
 public class ViewControllerFactory
 {
@@ -9,30 +8,46 @@ public class ViewControllerFactory
 
     private readonly PlayerCache _playerCache;
     private readonly PlayerClient _playerClient;
+    private readonly PongNetworkManager _networkManager;
 
-    public ViewControllerFactory(SceneWireframe wireframe, AssetLoader assetLoader, PlayerCache playerCache, PlayerClient playerClient)
+    public ViewControllerFactory(SceneWireframe wireframe, AssetLoader assetLoader, PlayerCache playerCache, PlayerClient playerClient, PongNetworkManager networkManager)
     {
         _wireframe = wireframe;
         _assetLoader = assetLoader;
         _playerCache = playerCache;
         _playerClient = playerClient;
+        _networkManager = networkManager;
     }
 
     public MainMenuViewController CreateMainMenuViewController()
     {
-        var view = _assetLoader.LoadView<MainMenuView>("MainMenuView");
-        return new MainMenuViewController(view, _playerCache, _playerClient, this, _wireframe);
+        return new MainMenuViewController(
+            _assetLoader.LoadView<MainMenuView>("MainMenuView"),
+            _playerCache,
+            _playerClient,
+            this,
+            _wireframe
+            );
     }
     
     public LeaderboardViewController CreatLeaderboardViewController()
     {
-        var view = _assetLoader.LoadView<LeaderboardView>("LeaderboardView");
-        return new LeaderboardViewController(view);
+        return new LeaderboardViewController(_assetLoader.LoadView<LeaderboardView>("LeaderboardView"));
     }
 
     public ChangeNameViewController CreateChangeNameViewController()
     {
-        var view = _assetLoader.LoadView<ChangeNameView>("ChangeNameView");
-        return new ChangeNameViewController(view, _playerClient);
+        return new ChangeNameViewController(
+            _assetLoader.LoadView<ChangeNameView>("ChangeNameView"),
+            _playerClient
+            );
     }
+
+    public GameplayViewController CreateGameplayViewController()
+    {
+        return new GameplayViewController(
+            _assetLoader.LoadView<GameplayView>("GameplayView"),
+            _networkManager
+            );
+    } 
 }
